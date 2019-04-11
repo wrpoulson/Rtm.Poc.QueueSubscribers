@@ -24,7 +24,7 @@ namespace Subscriber.Shared
     public void Start()
     {
       Log.Information($"Started listening for work on queue: {QueueName}");
-      Console.WriteLine($"Started listening for work on queue: {QueueName}");
+      Console.WriteLine($" Started listening for work on queue: {QueueName}");
 
       var factory = new ConnectionFactory() { HostName = "localhost" };
       using (var connection = factory.CreateConnection())

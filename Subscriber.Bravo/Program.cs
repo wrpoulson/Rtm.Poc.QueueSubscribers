@@ -10,6 +10,7 @@ namespace Subscriber.Bravo
   {
     static void Main(string[] args)
     {
+      Console.Title = typeof(Program).Assembly.GetName().Name;
       Log.Logger = new LoggerConfiguration().WriteTo.File($"{Environment.UserName}.{typeof(Program).Assembly.GetName().Name}.log").CreateLogger();
       var subscriber = new RabbitMqSubscriber(GetSettings());
       subscriber.Start();
