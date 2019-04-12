@@ -30,11 +30,13 @@ namespace Subscriber.Shared
       using (var connection = factory.CreateConnection())
       using (var channel = connection.CreateModel())
       {
-        channel.QueueDeclare(queue: QueueName,
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false,
-                             arguments: null);
+        channel.QueueDeclare(
+          queue: QueueName,
+          durable: true,
+          exclusive: false,
+          autoDelete: false,
+          arguments: null
+        );
 
         var consumer = new EventingBasicConsumer(channel);
 
@@ -46,9 +48,11 @@ namespace Subscriber.Shared
           Log.Information($"Received message: {message}");
         };
 
-        channel.BasicConsume(queue: QueueName,
-                             autoAck: true,
-                             consumer: consumer);
+        channel.BasicConsume(
+          queue: QueueName,
+          autoAck: true,
+          consumer: consumer
+        );
 
         Console.WriteLine("\n Press 'q' to close application.\n");
         while (Console.Read() != 'q') ;
