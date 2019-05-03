@@ -14,11 +14,16 @@ namespace Subscriber.Shared
 
     public string RoutingKey { get; set; }
 
+    public bool EnableConsoleOutput { get; set; }
+
+    private int MessagesReceivedCount = 0;
+
     public RabbitMqSubscriber(Settings settings)
     {
       QueueName = settings.QueueName;
       ExchangeName = settings.ExchangeName;
       RoutingKey = settings.RoutingKey;
+      EnableConsoleOutput = settings.EnableConsoleOutput;
     }
 
     public void Start()
@@ -44,8 +49,9 @@ namespace Subscriber.Shared
         {
           var body = ea.Body;
           var message = Encoding.UTF8.GetString(body);
-          Console.WriteLine($" [x] Received {message}");
+          if(EnableConsoleOutput) Console.WriteLine($" [x] Received {message}");
           Log.Information($"Received message: {message}");
+          MessagesReceivedCount++;
         };
 
         channel.BasicConsume(
@@ -56,6 +62,7 @@ namespace Subscriber.Shared
 
         Console.WriteLine("\n Press 'q' to close application.\n");
         while (Console.Read() != 'q') ;
+        Log.Information($"Total messages received: {MessagesReceivedCount}");
       }
     }
   }

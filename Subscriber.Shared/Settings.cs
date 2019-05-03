@@ -8,5 +8,7 @@ namespace Subscriber.Shared
     public string ExchangeName { get; set; }
 
     public string RoutingKey { get; set; }
+    public bool EnableConsoleOutput { get; set; }
+
   }
 }
