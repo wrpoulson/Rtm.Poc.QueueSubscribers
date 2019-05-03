@@ -11,7 +11,9 @@ namespace Subscriber.Alpha
     static void Main(string[] args)
     {
       Console.Title = typeof(Program).Assembly.GetName().Name;
-      Log.Logger = new LoggerConfiguration().WriteTo.File($"{Environment.UserName}.{typeof(Program).Assembly.GetName().Name}.log").CreateLogger();
+      Log.Logger = new LoggerConfiguration()
+        .WriteTo.File($"C:\\RealTimeHimFileDropTest\\Logs\\{DateTime.Now.ToString("MM_dd_yyyy")}_{Environment.UserName}.{typeof(Program).Assembly.GetName().Name}.log")
+        .CreateLogger();
       var subscriber = new RabbitMqSubscriber(GetSettings());
       subscriber.Start();
     }
